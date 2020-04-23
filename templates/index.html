@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{%block nav%}
+<form class="form-inline" action="{{url_for('singin')}}" method="post">
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">@</span>
+        </div>
+        <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" name="username" value={{request.form.get}}>
+      </div>
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1" style="margin-left: 10px;">&#8224;</span>
+      </div>
+      <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" name="password" value="{{request.form.get}}">
+    </div>
+    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 10px;">SUBMIT</button>
+</form>
+{% endblock %}
+
+{% block section %}
+<h1>Welcome</h1>
+{% endblock %}
+
