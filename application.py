@@ -34,11 +34,30 @@ def index():
 def singin():
 
     usuario = request.form.get("username")
-    password = request.form.get("password")         
+    password = request.form.get("password")
 
-@app.route("/session")
-def session():
-    return render_template("session.html")
+    usuid = db.execute("SELECT * FROM credential WHERE usuario = :usuario",{"usuario":usuario}).fetchone()
+    match = usuid[1]
+    user_id = usuid[0]
+
+    if password==match:
+
+        return render_template("session.html",username=user_id)
+
+    else:
+        error = "Contraseña Incorrecta"
+        return render_template ("index.html",error=error)
+    
+    if usuario=="" or password=="":
+        error = "Please fill all the fields"
+        return render_template ("index.html", error=error)
+
+@app.route("/<string:user_id>/", methods=["GET","POST"])
+def session(user_id):
+
+    data = request.get("https://www.goodreads.com/book/review_counts.json",params={"key":"3FnYpHAxIdxiyCY6f1Ekw","isbn":"9781632168146"})
+
+    return render_template("session.html", data=data)
 
 @app.route("/registration")
 def register():
