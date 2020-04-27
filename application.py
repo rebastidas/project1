@@ -1,4 +1,6 @@
 import os
+import requests
+import json
 
 from flask import Flask, session
 from flask import Flask, render_template, request
@@ -36,7 +38,7 @@ def singin():
     usuario = request.form.get("username")
     password = request.form.get("password")
 
-    usuid = db.execute("SELECT * FROM credential WHERE usuario = :usuario",{"usuario":usuario}).fetchone()
+    usuid = db.execute("SELECT * FROM credential WHERE usuario = :usuario",{"usuario":usuario}).fetchall()
     match = usuid[1]
     user_id = usuid[0]
 
@@ -52,12 +54,16 @@ def singin():
         error = "Please fill all the fields"
         return render_template ("index.html", error=error)
 
-@app.route("/<string:user_id>/", methods=["GET","POST"])
-def session(user_id):
+@app.route("/session", methods=["GET","POST"])
+def session():
 
-    data = request.get("https://www.goodreads.com/book/review_counts.json",params={"key":"3FnYpHAxIdxiyCY6f1Ekw","isbn":"9781632168146"})
+    isbn = request.form.get("isbn")
+    title = request.form.get("isbn")
+    author = request.form.get("isbn")
+    
+    infor = db.execute("SELECT * FROM books WHERE isbn ILIKE :isbn OR title ILIKE :isbn OR author ILIKE :isbn ",{"isbn":"%" +isbn+ "%","isbn":"%" +title+ "%","isbn":"%" +author+ "%"}).fetchall()
 
-    return render_template("session.html", data=data)
+    return render_template("session.html",infor=infor)
 
 @app.route("/registration")
 def register():
