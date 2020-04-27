@@ -11,6 +11,28 @@
 
 {% endblock %}
 {% block form %}
-<p>{{data}}</p>
+<form action="{{url_for('session')}}" method="POST">
+<div><input type="input" name="isbn" id="" placeholder="enter isbn"></div>
+<br>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ISBN</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Year</th>
+          </tr>
+        </thead>
+        {% for i in infor %}
+        <tbody>
+                <tr>
+                  <th scope="row"><option value="#">{{i.isbn}}</option></th>
+                  <td>{{ i.title }}</td>
+                  <td>{{ i.author }}</td>
+                  <td>{{ i.year }}</td>
+                </tr>
+        {% endfor %}
 {% endblock %}
 
