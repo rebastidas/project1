@@ -23,15 +23,19 @@
             <th scope="col">Title</th>
             <th scope="col">Author</th>
             <th scope="col">Year</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         {% for i in infor %}
         <tbody>
                 <tr>
-                  <th scope="row"><option value="#">{{i.isbn}}</option></th>
+                  <form action="{{url_for('details')}}" method="POST">
+                  <th scope="row">{{i.isbn}}</th>
                   <td>{{ i.title }}</td>
                   <td>{{ i.author }}</td>
                   <td>{{ i.year }}</td>
+                  <td><button class="btn btn-outline-dark my-2 my-sm-0" type="submit" name="isbne" value="{{i.isbn}}">Details</button></td>
+                  </form>
                 </tr>
         {% endfor %}
 {% endblock %}
