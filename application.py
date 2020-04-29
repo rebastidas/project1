@@ -1,6 +1,5 @@
 import os
 import requests
-import json
 
 from flask import Flask, session
 from flask import Flask, render_template, request
@@ -38,9 +37,12 @@ def singin():
     usuario = request.form.get("username")
     password = request.form.get("password")
 
-    usuid = db.execute("SELECT * FROM credential WHERE usuario = :usuario",{"usuario":usuario}).fetchall()
+    usuid = db.execute("SELECT * FROM credential WHERE usuario = :usuario",{"usuario":usuario}).fetchone()
+    
     match = usuid[1]
     user_id = usuid[0]
+
+
 
     if password==match:
 
@@ -64,6 +66,19 @@ def session():
     infor = db.execute("SELECT * FROM books WHERE isbn ILIKE :isbn OR title ILIKE :isbn OR author ILIKE :isbn ",{"isbn":"%" +isbn+ "%","isbn":"%" +title+ "%","isbn":"%" +author+ "%"}).fetchall()
 
     return render_template("session.html",infor=infor)
+
+@app.route("/details", methods=["GET","POST"])
+def details():
+
+    isbn = request.form.get("isbne")
+
+    bdata = db.execute("SELECT * FROM books WHERE isbn = :isbn",{"isbn":isbn}).fetchone()
+
+    res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "3FnYpHAxIdxiyCY6f1Ekw", "isbns": isbn})
+    grvw = res.json()
+    rvw_avg = grvw["books"][0]["average_rating"]
+    
+    return render_template("books.html", bdata=bdata,rvw_avg=rvw_avg)
 
 @app.route("/registration")
 def register():
@@ -91,3 +106,5 @@ def registration():
     else:
         error = 'Both password should match'
         return render_template("register.html",error=error)
+
+
