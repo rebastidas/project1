@@ -11,7 +11,7 @@
 
 {% endblock %}
 {% block form %}
-<form action="{{url_for('session')}}" method="POST">
+<form action="{{url_for('search')}}" method="POST">
 <div><input type="input" name="isbn" id="" placeholder="enter isbn"></div>
 <br>
 <button type="submit" class="btn btn-primary">Submit</button>
@@ -29,7 +29,7 @@
         {% for i in infor %}
         <tbody>
                 <tr>
-                  <form action="{{url_for('details')}}" method="POST">
+                  <form action="{{url_for('details', isbne = i.isbn)}}" method="POST">
                   <th scope="row">{{i.isbn}}</th>
                   <td>{{ i.title }}</td>
                   <td>{{ i.author }}</td>
