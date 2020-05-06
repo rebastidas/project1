@@ -6,23 +6,22 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>-Project 1</title>
 </head>
+
 <nav class="navbar navbar-dark bg-dark"> <h5><span class="badge badge-primary">WEB BOOK APP</span></h5>
 {%block nav%}{%endblock%}
 </nav>
-<section>
+
+<body>
+  <section>
     <div class="card w-50" style="margin-top: 1rem; margin-left: 1rem;">
         <div class="card-header text-white bg-dark"><h5>{%block section%}{%endblock%}</h5></div>
         <div class="card-body">
           {%block form%}{%endblock%}
-          <p class="card-text">{% if error %}<p style="color: red;">{{error}}</p>{% endif %}</p>
+          <p class="card-text">{% if error %}<div class="alert alert-danger" role="alert">{{error}}</div>{% endif %}</p>
+          <p class="card-text">{% if msg %}<div class="alert alert-success" role="alert">{{msg}}</div>{% endif %}</p>
         </div>
       </div>
-
-</section>
-<body>
-    <nav>
-
-    </nav>
+  </section>
 </body>
 <footer>
 

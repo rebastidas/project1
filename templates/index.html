@@ -13,11 +13,13 @@
       </div>
       <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" name="password">
     </div>
-    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 10px;">SUBMIT</button>
+    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 10px;">Sign In</button>
+    <a class="btn btn-outline-primary my-2 my-sm-0" style="margin-left: 10px;" href="{{ url_for('register') }}">Or Register</a>
 </form>
+
 {% endblock %}
 
 {% block section %}
-<h1>Welcome</h1>
+<h1>Welcome to my book app | Project 1</h1>
 {% endblock %}
 

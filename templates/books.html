@@ -1,25 +1,47 @@
 {% extends "layout.html" %}
 
+{%block nav%}
+<a class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 10px;" href="{{ url_for('logout') }}">
+        LOG OUT</a>
+{% endblock %}
+
 {% block section %}
 <h1>{{bdata.title}}</h1>
 {% endblock %}
 
 {% block form %}
-<p>{{bdata.year}}</p>
-<p>{{bdata.author}}</p>
-<p>{{bdata.isbn}}</p>
-
+<ul class="list-group list-group-flush">
+    <li class="list-group-item">Year: {{bdata.year}}</li>
+    <li class="list-group-item">Author: {{bdata.author}}</li>
+    <li class="list-group-item">Isbn: {{bdata.isbn}}</li>
+    <li class="list-group-item">Revie Count: {{bdata.review_count}}</li>
+    <li class="list-group-item">BookApp ReviewAVG: {{bdata.review_count}}</li>
+    <li class="list-group-item">Goodread Review AVG: {{rvw_avg}}</li>
+</ul>
 <form action="{{url_for('add_review')}}" method="POST">
-    <select name="adrv" id="">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
-    <button value="submit">submit</button>
+    <div class="form-group mt-3">
+        <label for="formGroupExampleInput"><strong>Please review this book</strong></label>
+        <select class="custom-select mt-3 mb-3" name="adrv" id="">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">What do you think about this book?</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" name="rvwtext" rows="3"></textarea>
+    </div>
+    <button class="btn btn-primary btn-lg" value="submit">submit</button>
 </form>
 
-<p>{{rvw_avg}}</p>
-
+{% for i in book_rvw%}
+<div class="card mt-3">
+    <div class="card-body ">
+        <p><strong>{{i.usuario}}</strong> gave a <strong>{{i.review}}</strong> to this book</p>
+        <p>{{i.rvwtext}}</p>
+    </div>
+  </div>
+{% endfor%}
 {% endblock %}

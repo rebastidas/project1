@@ -1,18 +1,17 @@
 {% extends "layout.html" %}
 
 {%block nav%}
-<a class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 10px;" href="{{ url_for('index') }}">
+<a class="btn btn-outline-primary my-2 my-sm-0" type="submit" style="margin-left: 10px;" href="{{ url_for('logout') }}">
         LOG OUT</a>
-</form>
 {% endblock %}
 
 {% block section %}
-<h1>Welcome {{username}}| Password {{password}}</h1>
-
+<h1>Welcome {{user_id}}</h1>
 {% endblock %}
+
 {% block form %}
 <form action="{{url_for('search')}}" method="POST">
-<div><input type="input" name="isbn" id="" placeholder="enter isbn"></div>
+<div><input class="form-control" type="input" name="isbn" id="" placeholder="Enter ISBN, Author or Title"></div>
 <br>
 <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -35,6 +34,7 @@
                   <td>{{ i.author }}</td>
                   <td>{{ i.year }}</td>
                   <td><button class="btn btn-outline-dark my-2 my-sm-0" type="submit" name="isbne" value="{{i.isbn}}">Details</button></td>
+                  <td><a class="btn btn-outline-dark my-2 my-sm-0" href="{{url_for('get_api', isbne = i.isbn)}}">API</a></td>
                   </form>
                 </tr>
         {% endfor %}
